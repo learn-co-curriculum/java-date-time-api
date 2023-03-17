@@ -78,7 +78,7 @@ public class Person {
 For example, if the current date is August 18, 2022, then the following would be
 the output of the above code:
 
-```plaintext
+```text
 2022-08-18
 ```
 
@@ -152,7 +152,7 @@ System.out.println(ben.getBirthday());
 
 Both of these `of()` methods would return a `LocalDate` object like this:
 
-```plaintext
+```text
 1974-11-14
 ```
 
@@ -185,7 +185,7 @@ public static void main(String[] args) {
 
 The output of the above would be:
 
-```plaintext
+```text
 NOVEMBER
 11
 14
@@ -230,7 +230,7 @@ public static void main(String[] args) {
 
 The result of the code above would look like this:
 
-```plaintext
+```text
 1974-11-14
 1974-12-14
 1975-02-14
@@ -279,7 +279,7 @@ Now we'll look at the methods where we subtract from the `LocalDate` object:
 
 The result of the code above will now look like this:
 
-```plaintext
+```text
 1974-11-14
 1980-04-25
 1975-04-25
@@ -301,6 +301,161 @@ below:
 | plusMonths(long monthsToAdd)       | Returns a copy of this `LocalDate` with the specified number of months added      |
 | plusWeeks(long weeksToAdd)         | Returns a copy of this `LocalDate` with the specified number of weeks added       |
 | plusYears(long yearsToAdd)         | Returns a copy of this `LocalDate` with the specified number of years added       |
+
+## Comparing Dates
+
+Sometimes we want to compare dates to see if they are before, after, or "equal"
+to each other. Luckily, the `LocalDate` has methods to help with that too! Let's
+create some more `Person` objects to compare our `Person` Ben to:
+
+```java
+    public static void main(String[] args) {
+        Person ben = new Person();
+        ben.setName("Ben Wyatt");
+        ben.setBirthday(1974, 11, 14);
+        System.out.println("Ben's Birthday: " + ben.getBirthday());
+
+        Person benTwin = new Person();
+        benTwin.setBirthday(1974, 11, 14);
+
+        Person chris = new Person();
+        chris.setBirthday(1967, 7, 26);
+        
+        Person leslie = new Person();
+        leslie.setBirthday(1975, 1, 18);
+
+    }
+```
+
+To determine if a `LocalDate` is after a specified date, we can call the
+`isAfter` instance method. This method takes in a `ChonoLocalDate` as a
+parameter and returns a `boolean` value to check if this date is after the
+specified date. Let's look at this method and compare people's birthdays:
+
+```java
+    public static void main(String[] args) {
+        Person ben = new Person();
+        ben.setName("Ben Wyatt");
+        ben.setBirthday(1974, 11, 14);
+        System.out.println("Ben's Birthday: " + ben.getBirthday());
+
+        Person benTwin = new Person();
+        benTwin.setBirthday(1974, 11, 14);
+
+        Person chris = new Person();
+        chris.setBirthday(1967, 7, 26);
+
+        Person leslie = new Person();
+        leslie.setBirthday(1975, 1, 18);
+
+        boolean benVsTwin = ben.getBirthday().isAfter(benTwin.getBirthday());
+        boolean benVsChris = ben.getBirthday().isAfter(chris.getBirthday());
+        boolean benVsLeslie = ben.getBirthday().isAfter(leslie.getBirthday());
+
+        System.out.println("Is Ben's Birthday after his twin's birthday? " + benVsTwin);
+        System.out.println("Is Ben's Birthday after Chris' birthday? " + benVsChris);
+        System.out.println("Is Ben's Birthday after Leslie's birthday? " + benVsLeslie);
+    }
+```
+
+If we run this code, we'll get the following result:
+
+```text
+Ben's Birthday: 1974-11-14
+Is Ben's Birthday after his twin's birthday? false
+Is Ben's Birthday after Chris' birthday? true
+Is Ben's Birthday after Leslie's birthday? false
+```
+
+We can also determine if a `LocalDate` is before a specified date. To do so, we
+can call the `isBefore` instance method that takes in a `ChonoLocalDate` as a
+parameter and returns a `boolean` value to check if this date is before the
+specified date. Let's look at this method and compare people's birthdays like we
+did with the `isAfter` method:
+
+```java
+    public static void main(String[] args) {
+        Person ben = new Person();
+        ben.setName("Ben Wyatt");
+        ben.setBirthday(1974, 11, 14);
+        System.out.println("Ben's Birthday: " + ben.getBirthday());
+
+        Person benTwin = new Person();
+        benTwin.setBirthday(1974, 11, 14);
+
+        Person chris = new Person();
+        chris.setBirthday(1967, 7, 26);
+
+        Person leslie = new Person();
+        leslie.setBirthday(1975, 1, 18);
+
+        boolean benVsTwin = ben.getBirthday().isBefore(benTwin.getBirthday());
+        boolean benVsChris = ben.getBirthday().isBefore(chris.getBirthday());
+        boolean benVsLeslie = ben.getBirthday().isBefore(leslie.getBirthday());
+
+        System.out.println("Is Ben's Birthday before his twin's birthday? " + benVsTwin);
+        System.out.println("Is Ben's Birthday before Chris' birthday? " + benVsChris);
+        System.out.println("Is Ben's Birthday before Leslie's birthday? " + benVsLeslie);
+    }
+```
+
+Now if we run the code, we'll get this output:
+
+```text
+Ben's Birthday: 1974-11-14
+Is Ben's Birthday before his twin's birthday? false
+Is Ben's Birthday before Chris' birthday? false
+Is Ben's Birthday before Leslie's birthday? true
+```
+
+Sometimes we also want to see if two dates are the same. This is where we can
+use the `isEqual` method! This method takes in a `ChronoLocalDate` as a
+parameter and returns a `boolean` value to check if this date is equal to the
+specified date. Let's look at this method in action:
+
+```java
+    public static void main(String[] args) {
+        Person ben = new Person();
+        ben.setName("Ben Wyatt");
+        ben.setBirthday(1974, 11, 14);
+        System.out.println("Ben's Birthday: " + ben.getBirthday());
+
+        Person benTwin = new Person();
+        benTwin.setBirthday(1974, 11, 14);
+
+        Person chris = new Person();
+        chris.setBirthday(1967, 7, 26);
+
+        Person leslie = new Person();
+        leslie.setBirthday(1975, 1, 18);
+
+        boolean benVsTwin = ben.getBirthday().isEqual(benTwin.getBirthday());
+        boolean benVsChris = ben.getBirthday().isEqual(chris.getBirthday());
+        boolean benVsLeslie = ben.getBirthday().isEqual(leslie.getBirthday());
+
+        System.out.println("Do Ben and his twin have the same birthday? " + benVsTwin);
+        System.out.println("Do Ben and Chris have the same birthday? " + benVsChris);
+        System.out.println("Do Ben and Leslie have the same birthday? " + benVsLeslie);
+    }
+```
+
+Consider the output for when we run this code:
+
+```text
+Ben's Birthday: 1974-11-14
+Do Ben and his twin have the same birthday? true
+Do Ben and Chris have the same birthday? false
+Do Ben and Leslie have the same birthday? false
+```
+
+As a review of the methods we demonstrated above, consider the following table
+below:
+
+| Method                           | Description                                                                           |
+|----------------------------------|---------------------------------------------------------------------------------------|
+| isAfter(ChronoLocalDate other)   | Returns a `boolean` after checking to see if this date is after the specified date    |
+| isBefore(ChronoLocalDate other)  | Returns a `boolean` after checking to see if this date is before the specified date   |
+| isEqual(ChronoLocalDate other)   | Returns a `boolean` after checking to see if this date is equal to the specified date |
 
 ## `LocalTime` and `LocalDateTime` Classes
 
